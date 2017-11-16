@@ -1,6 +1,8 @@
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,8 +23,8 @@ public class TestBase {
     private static Files dir;
 
 
-    @Before
-    public void setupNewDirTemp() {
+    @BeforeClass
+    public static void setupNewDirTemp() {
         try {
             path = Files.createTempDirectory("TempDir");
         } catch (IOException e) {
@@ -31,15 +33,15 @@ public class TestBase {
 
     }
 
-    @After
-    public void deleteTempDir()  {
+    @AfterClass
+    public static void deleteTempDir()  {
         try {
             FileUtils.deleteDirectory(path.toFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    @DataProvider
+
     public Iterator<Object[]> name() {
         List<Object[]> data = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
