@@ -1,20 +1,30 @@
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 16.11.2017.
  */
+@RunWith(DataProviderRunner.class)
 public class TestFile extends TestBase implements MyCategories {
 
     @Test
     @Category(PositiveTests.class)
-    public void TestCreateNewFileTXT() throws IOException {
+    @UseDataProvider("users")
+    public void TestCreateNewFileTXT(String name) throws IOException {
 
-        String absoluteFilePath = path + "/" + "Test" + ".txt";
+        String absoluteFilePath = path + "/" + name + ".txt";
 
         file = new File(absoluteFilePath);
         Assert.assertTrue("Файл не создан или уже существует",file.createNewFile());
@@ -24,9 +34,10 @@ public class TestFile extends TestBase implements MyCategories {
 
     @Test
     @Category(PositiveTests.class)
-    public void TestCreateFileDoc() throws IOException {
+    @UseDataProvider("users")
+    public void TestCreateFileDoc(String name) throws IOException {
 
-        String absoluteFilePath = path + "/" + "Test" + ".doc";
+        String absoluteFilePath = path + "/" + name + ".doc";
 
         file = new File(absoluteFilePath);
         Assert.assertTrue("Файл не создан или уже существует",file.createNewFile());
@@ -35,8 +46,9 @@ public class TestFile extends TestBase implements MyCategories {
 
     @Test
     @Category(PositiveTests.class)
-    public void TestNewFileCSV() throws IOException {
-        String absoluteFilePath = path + "/" + "TEst" + ".csv";
+    @UseDataProvider("users")
+    public void TestNewFileCSV(String name) throws IOException {
+        String absoluteFilePath = path + "/" + name + ".csv";
 
         file = new File(absoluteFilePath);
         Assert.assertTrue("Файл не создан или уже существует",file.createNewFile());
@@ -66,6 +78,8 @@ public class TestFile extends TestBase implements MyCategories {
         Assert.assertFalse("Файл уже создан ",file.createNewFile());
 
     }
+
+
 
 
 }
