@@ -79,7 +79,13 @@ public class TestFile extends TestBase implements MyCategories {
 
     }
 
+    @DataProvider
+    public static Object[] users() {
+        return new Object[] {
+                "TestName"
 
+        };
+    }
 
 
 }

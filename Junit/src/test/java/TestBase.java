@@ -21,7 +21,7 @@ import java.util.Random;
 /**
  * Created by User on 16.11.2017.
  */
-@RunWith(DataProviderRunner.class)
+
 public class TestBase {
 
     protected static Path path;
@@ -61,22 +61,21 @@ public class TestBase {
         return "TestFile" + new Random().nextInt();
     }
 
-    @DataProvider
-    public static Object[][] users() throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(
-                TestBase.class.getResourceAsStream("/user.data")));
-
-        List<Object[]> userData = new ArrayList<Object[]>();
-        String line = in.readLine();
-        while (line != null) {
-            userData.add(line.split(";"));
-            System.out.println( line);
-            line = in.readLine();
-        }
-
-        in.close();
-
-        return (Object[][]) userData.toArray(new Object[]{});
-    }
+//    @DataProvider
+//    public static Object[] users() throws IOException {
+//        BufferedReader in = new BufferedReader(new InputStreamReader(
+//                TestBase.class.getResourceAsStream("/user.data")));
+//
+//        List<Object[]> userData = new ArrayList<Object[]>();
+//        String line = in.readLine();
+//        while (line != null) {
+//            userData.add(line.split(";"));
+//            line = in.readLine();
+//        }
+//
+//        in.close();
+//
+//        return  userData.toArray(new Object[]{});
+//    }
 
 }
