@@ -1,10 +1,8 @@
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.*;
+import org.junit.rules.ExternalResource;
 import org.junit.runner.RunWith;
 
 import java.io.BufferedReader;
@@ -28,38 +26,60 @@ public class TestBase {
     protected static File file;
     private static Files dir;
 
+    @ClassRule
+    public static ExternalResource driverRule = new ExternalResource(){
+        @Override
+        protected void before() {
+            try {
+                path = Files.createTempDirectory("TempDir");
+            } catch (IOException e) {
+                System.out.println("Диреткория не создана ");
+            }
+        };
+        @Override
+        protected void after() {
+            try {
+                FileUtils.deleteDirectory(path.toFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
+    };
 
-    @BeforeClass
-    public static void setupNewDirTemp() {
-        try {
-            path = Files.createTempDirectory("TempDir");
-        } catch (IOException e) {
-            System.out.println("Диреткория не создана ");
-        }
 
-    }
 
-    @AfterClass
-    public static void deleteTempDir()  {
-        try {
-            FileUtils.deleteDirectory(path.toFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    @BeforeClass
+//    public static void setupNewDirTemp() {
+//        try {
+//            path = Files.createTempDirectory("TempDir");
+//        } catch (IOException e) {
+//            System.out.println("Диреткория не создана ");
+//        }
+//
+//    }
+//
+//    @AfterClass
+//    public static void deleteTempDir()  {
+//        try {
+//            FileUtils.deleteDirectory(path.toFile());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public Iterator<Object[]> name() {
-        List<Object[]> data = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            data.add(new Object[]{
-                    generateRandomName()
-            });
-        }
-        return data.iterator();
-    }
-    private Object generateRandomName() {
-        return "TestFile" + new Random().nextInt();
-    }
+//    public Iterator<Object[]> name() {
+//        List<Object[]> data = new ArrayList<>();
+//        for (int i = 0; i < 1; i++) {
+//            data.add(new Object[]{
+//                    generateRandomName()
+//            });
+//        }
+//        return data.iterator();
+//    }
+//    private Object generateRandomName() {
+//        return "TestFile" + new Random().nextInt();
+//    }
 
 //    @DataProvider
 //    public static Object[] users() throws IOException {
