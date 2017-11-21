@@ -3,7 +3,9 @@ import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.junit.rules.ExternalResource;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.junit.runners.model.Statement;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,27 +26,19 @@ public class TestBase {
 
     protected static Path path;
     protected static File file;
-    private static Files dir;
 
     @ClassRule
-    public static ExternalResource driverRule = new ExternalResource(){
+    public static MyDirRule dirRule = new MyDirRule();
+
+    @Rule
+    public ExternalResource ExtractDirRule = new ExternalResource() {
         @Override
-        protected void before() {
-            try {
-                path = Files.createTempDirectory("TempDir");
-            } catch (IOException e) {
-                System.out.println("Диреткория не создана ");
-            }
-        };
-        @Override
-        protected void after() {
-            try {
-                FileUtils.deleteDirectory(path.toFile());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        };
+        protected void before() throws Throwable {
+            path = dirRule.getPath();
+        }
     };
+
+
 
 
 
