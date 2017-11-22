@@ -86,6 +86,7 @@ public class TestFile extends TestBase implements MyCategories {
 
     @Test
     @UnstableTest
+    @Category(NegativeTests.class)
     public void randomlyFailingTest() {
         if (attempt == 2) {
             attempt = 1;

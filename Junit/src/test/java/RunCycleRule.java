@@ -25,11 +25,11 @@ public class RunCycleRule implements TestRule {
 
         @Override
         public void evaluate() throws Throwable {
-            if (desc.getAnnotation(UnstableTest.class) != null) {
+            if (desc.getAnnotation(UnstableTest.class)!= null) {
                 try {
                     base.evaluate();
                 } catch (Throwable t) {
-                    System.out.println("Failed on first attempt: " + desc);
+                    System.out.println("Failed on first attempt: " + desc.getAnnotations());
                     base.evaluate();
                 }
             }
