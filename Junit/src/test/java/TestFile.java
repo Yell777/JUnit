@@ -84,8 +84,6 @@ public class TestFile extends TestBase implements MyCategories {
 
     }
 
-//    @Rule
-//    public TestRule runTwiceRule = new RunCycleRule();
     @Test
     @UnstableTest
     public void randomlyFailingTest() {

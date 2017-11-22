@@ -39,7 +39,8 @@ public class TestBase {
         }
     };
 
-
+    @Rule
+    public TestRule runTwiceRule = new RunCycleRule();
 
 
 
