@@ -10,15 +10,11 @@ import java.nio.file.Path;
  * Created by User on 21.11.2017.
  */
 public class MyDirRule extends ExternalResource {
-    protected static Path path;
-    protected static File file;
+    private static Path path;
+
 
     public Path getPath() {
         return  path;
-    }
-
-    public File getFile() {
-        return file;
     }
 
 
@@ -43,4 +39,7 @@ public class MyDirRule extends ExternalResource {
     }
 
     ;
+
+
+
 }

@@ -2,8 +2,10 @@ import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 
 import java.io.BufferedReader;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 @RunWith(DataProviderRunner.class)
 public class TestFile extends TestBase implements MyCategories {
+    private static int attempt = 1;
 
     @Test
     @Category(PositiveTests.class)
@@ -77,7 +80,24 @@ public class TestFile extends TestBase implements MyCategories {
         file.createNewFile();
         Assert.assertFalse("Файл уже создан ",file.createNewFile());
 
+
+
     }
+
+//    @Rule
+//    public TestRule runTwiceRule = new RunCycleRule();
+    @Test
+    @UnstableTest
+    public void randomlyFailingTest() {
+        if (attempt == 2) {
+            attempt = 1;
+
+        } else {
+            Assert.fail("Failed on " + (attempt++) + " attempt");
+        }
+    }
+
+
 
     @DataProvider
     public static Object[] users() {
@@ -86,6 +106,7 @@ public class TestFile extends TestBase implements MyCategories {
 
         };
     }
+
 
 
 }
