@@ -85,15 +85,15 @@ public class TestFile extends TestBase implements MyCategories {
     }
 
     @Test
-    @UnstableTest
+    @UnstableTest(3)
     @Category(NegativeTests.class)
     public void randomlyFailingTest() {
         if (attempt == 2) {
             attempt = 1;
-
         } else {
             Assert.fail("Failed on " + (attempt++) + " attempt");
         }
+
     }
 
 
