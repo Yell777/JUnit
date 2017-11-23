@@ -20,11 +20,13 @@ import java.util.List;
  */
 @RunWith(DataProviderRunner.class)
 public class TestFile extends TestBase implements MyCategories {
+
     private static int attempt = 1;
 
     @Test
     @Category(PositiveTests.class)
-    @UseDataProvider("users")
+    @UseDataProvider(value = "dataSourceLoader", location = UniversalDataProviders.class)
+    @DataSource(value = "/user.data", type = DataSource.Type.RESOURCE)
     public void TestCreateNewFileTXT(String name) throws IOException {
 
         String absoluteFilePath = path + "/" + name + ".txt";
@@ -37,7 +39,8 @@ public class TestFile extends TestBase implements MyCategories {
 
     @Test
     @Category(PositiveTests.class)
-    @UseDataProvider("users")
+    @UseDataProvider(value = "dataSourceLoader", location = UniversalDataProviders.class)
+    @DataSource(value = "/user.data", type = DataSource.Type.RESOURCE)
     public void TestCreateFileDoc(String name) throws IOException {
 
         String absoluteFilePath = path + "/" + name + ".doc";
@@ -49,7 +52,8 @@ public class TestFile extends TestBase implements MyCategories {
 
     @Test
     @Category(PositiveTests.class)
-    @UseDataProvider("users")
+    @UseDataProvider(value = "dataSourceLoader", location = UniversalDataProviders.class)
+    @DataSource(value = "/user.data", type = DataSource.Type.RESOURCE)
     public void TestNewFileCSV(String name) throws IOException {
         String absoluteFilePath = path + "/" + name + ".csv";
 
