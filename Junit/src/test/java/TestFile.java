@@ -89,7 +89,7 @@ public class TestFile extends TestBase implements MyCategories {
     }
 
     @Test
-    @UnstableTest(3)
+    @UnstableTest(5)
     @Category(NegativeTests.class)
     public void randomlyFailingTest() {
         if (attempt == 2) {

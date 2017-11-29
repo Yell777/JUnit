@@ -28,15 +28,35 @@ public class RunCycleRule implements TestRule {
 
         @Override
         public void evaluate() throws Throwable {
-            if (desc.getAnnotation(UnstableTest.class)!= null) {
+            if (desc.getAnnotation(UnstableTest.class) != null) {
                 int Anum = desc.getAnnotation(UnstableTest.class).value();
-                for (int i = 1; i <= Anum ; i++)
-                        try {
-                            base.evaluate();
-                        } catch (Throwable t) {
-                            System.out.println("Failed on " + i + " attempt: " + desc);
+                for (int i = 1; i <= Anum; i++) {
+                    try {
+                        base.evaluate();
+                        System.err.println(desc.getDisplayName()
+                                + ": was successful after " + i
+                                + " attempt(s)");
+                        break;
+                    } catch (Throwable t) {
+                        if (i == Anum) {
+                            System.err.println(desc.getDisplayName()
+                                    + ": was not successful for " + i
+                                    + " attempts");
+                            throw t;
                         }
-            }else {
+                    }
+                }
+            }
+
+//                for (int i = 1; i <= Anum ; i++) {
+//                    try {
+//                        base.evaluate();
+//                    } catch (Throwable t) {
+//                        System.out.println("Failed on " + i + " attempt: " + desc);
+//                    }
+//                }
+
+            else {
                 base.evaluate();
             }
 
@@ -44,3 +64,4 @@ public class RunCycleRule implements TestRule {
 
     }
 }
+
